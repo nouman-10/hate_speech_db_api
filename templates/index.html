@@ -1,0 +1,45 @@
+{% extends "base.html" %} {% block content %}
+<table id="data" class="table table-striped" style="width: auto">
+  <thead>
+    <tr>
+      <th>Language</th>
+      <th>Class</th>
+      <th>Term</th>
+      <th>Definition</th>
+      <th>Similar Terms</th>
+      <th>Context/Example</th>
+      <th>Ambiguity</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for entry in entries %}
+    <tr>
+      <td class="shrink">{{ entry['Language'] }}</td>
+      <td class="shrink">{{ entry['Class'] }}</td>
+      <td class="shrink">{{ entry['Term'] }}</td>
+      <td class="expand">{{ entry['Definition'] }}</td>
+      <td class="shrink">{{ entry['Similar_Terms'] }}</td>
+      <td class="expand">{{ entry['Context/Example'] }}</td>
+      <td class="shrink">{{ entry['Ambiguity'] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %} {% block scripts %}
+<script>
+  $(document).ready(function () {
+    $("#data").DataTable({
+      ajax: "/api/data",
+      columns: [
+        { data: "Language", orderable: false },
+        { data: "Class", orderable: false },
+        { data: "Term", orderable: false },
+        { data: "Definition", orderable: false, searchable: false },
+        { data: "Similar_Terms", orderable: false, searchable: false },
+        { data: "Context/Example", orderable: false, searchable: false },
+        { data: "Ambiguity", orderable: false, searchable: false },
+      ],
+    });
+  });
+</script>
+{% endblock %}
