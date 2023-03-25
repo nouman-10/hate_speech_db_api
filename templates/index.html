@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% block content %}
-<table id="data" class="table table-striped" style="width: auto">
+<table id="data" class="table table-striped" style="width: 100%">
   <thead>
     <tr>
       <th>Language</th>
@@ -9,6 +9,7 @@
       <th>Similar Terms</th>
       <th>Context/Example</th>
       <th>Ambiguity</th>
+      <th>Twitter Examples</th>
     </tr>
   </thead>
   <tbody>
@@ -21,7 +22,12 @@
       <td class="shrink">{{ entry['Similar_Terms'] }}</td>
       <td class="expand">{{ entry['Context/Example'] }}</td>
       <td class="shrink">{{ entry['Ambiguity'] }}</td>
+      <td>blah blah</td>
+      <!-- <td class="shrink">
+        <a href="{{ entry['Twitter Examples Path'] }}">Download CSV</a>
+      </td> -->
     </tr>
+
     {% endfor %}
   </tbody>
 </table>
@@ -38,6 +44,18 @@
         { data: "Similar_Terms", orderable: false, searchable: false },
         { data: "Context/Example", orderable: false, searchable: false },
         { data: "Ambiguity", orderable: false, searchable: false },
+        {
+          data: "Twitter Examples Path",
+          orderable: false,
+          searchable: false,
+          render: function (data, type, row, meta) {
+            return (
+              '<a href="/download_csv/?file_path=' +
+              data +
+              '" download>Download</a>'
+            );
+          },
+        },
       ],
     });
   });
